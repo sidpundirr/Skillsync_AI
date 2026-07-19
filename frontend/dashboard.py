@@ -410,3 +410,12 @@ if analyze_btn:
             else:
                 st.error("Could not generate analysis results. See details below:")
                 st.code(error_message)
+
+
+if __name__ == "__main__":
+    import sys
+    from streamlit.web import cli as stcli
+
+    sys.argv = ["streamlit", "run", __file__]
+    sys.exit(stcli.main())
+
