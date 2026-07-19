@@ -82,20 +82,10 @@ streamlit run frontend/dashboard.py
 ```
 Access the application at [http://localhost:8501](http://localhost:8501).
 
----
 
-## 👥 Meet the Team
 
-| Name | Role / Designation | GitHub / LinkedIn |
-|------|--------------------|-------------------|
-| **Member 1 Name** | Developer / Architect | [@github_handle](https://github.com) |
-| **Member 2 Name** | Frontend Engineer | [@github_handle](https://github.com) |
-| **Member 3 Name** | Product Designer | [@github_handle](https://github.com) |
 
-*Feel free to edit this table in `README.md` to add your team members' actual names, roles, and profiles!*
 
----
 
-## 📄 License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
