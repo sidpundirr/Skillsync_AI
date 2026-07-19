@@ -10,12 +10,15 @@ BACKEND_DIR = ROOT_DIR / "backend"
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
 
+import traceback
+GRAPH_AVAILABLE = False
+IMPORT_ERROR_DETAILS = ""
 try:
     from app.agents.career_graph import CareerGraph
     from app.agents.state import CareerState
     GRAPH_AVAILABLE = True
-except ImportError:
-    GRAPH_AVAILABLE = False
+except Exception as e:
+    IMPORT_ERROR_DETAILS = traceback.format_exc()
 
 # Premium Theme and Styling
 st.set_page_config(
@@ -307,7 +310,7 @@ if analyze_btn:
                     except Exception as ex:
                         error_message += f"\nLocal graph run failed: {str(ex)}"
                 else:
-                    error_message += "\nLocal LangGraph environment not loaded. Make sure backend is in PYTHONPATH."
+                    error_message += f"\nLocal LangGraph environment not loaded. Import error details:\n{IMPORT_ERROR_DETAILS}"
 
             # Display Results
             if results:
