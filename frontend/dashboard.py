@@ -205,7 +205,7 @@ with st.sidebar:
     )
     
     import os
-    default_api_url = os.environ.get("BACKEND_API_URL", "http://127.0.0.1:8080")
+    default_api_url = os.environ.get("BACKEND_API_URL", "http://127.0.0.1:8081")
     api_url = st.text_input("FastAPI Backend URL", default_api_url, key="api_url_input")
     
     st.markdown("---")
@@ -217,9 +217,9 @@ with st.sidebar:
     )
     
     if st.button("Load Sample Data", key="load_sample_data_btn"):
-        st.session_state["resume_input"] = SAMPLE_RESUME
-        st.session_state["job_input"] = SAMPLE_JOB_DESC
-        st.success("Sample data loaded!")
+        st.session_state["resume_text_area"] = SAMPLE_RESUME
+        st.session_state["job_desc_area"] = SAMPLE_JOB_DESC
+        st.rerun()
 
 # Layout Columns
 col1, col2 = st.columns(2)
@@ -228,7 +228,6 @@ with col1:
     st.markdown("### 📄 Paste Resume Text")
     resume_text = st.text_area(
         "Paste the raw text of your resume here:",
-        value=st.session_state.get("resume_input", ""),
         height=300,
         placeholder="Enter your professional experience, summary, and skills...",
         key="resume_text_area"
@@ -238,7 +237,6 @@ with col2:
     st.markdown("### 📋 Paste Job Description")
     job_desc = st.text_area(
         "Paste the target job description here:",
-        value=st.session_state.get("job_input", ""),
         height=300,
         placeholder="Enter the job duties, requirements, and required skills...",
         key="job_desc_area"
@@ -413,9 +411,16 @@ if analyze_btn:
 
 
 if __name__ == "__main__":
-    import sys
-    from streamlit.web import cli as stcli
+    try:
+        from streamlit.runtime import exists as st_runtime_exists
+        running_in_streamlit = st_runtime_exists()
+    except ImportError:
+        running_in_streamlit = False
 
-    sys.argv = ["streamlit", "run", __file__]
-    sys.exit(stcli.main())
+    if not running_in_streamlit:
+        import sys
+        from streamlit.web import cli as stcli
+
+        sys.argv = ["streamlit", "run", __file__]
+        sys.exit(stcli.main())
 
