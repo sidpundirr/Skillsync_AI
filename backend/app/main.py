@@ -1,5 +1,14 @@
+from pathlib import Path
+import sys
+
+# Add parent directory of 'app' to Python path
+BACKEND_DIR = Path(__file__).resolve().parents[1]
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 
 from app.agents.career_graph import CareerGraph
 from app.schemas.career import CareerRequest, CareerResponse
@@ -53,3 +62,8 @@ def analyze_career(request: CareerRequest) -> CareerResponse:
         courses=final_state["courses"],
         report=final_state["report"]
     )
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app.main:app", host="127.0.0.1", port=8080, reload=True)
