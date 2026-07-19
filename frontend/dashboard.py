@@ -204,7 +204,9 @@ with st.sidebar:
         key="connection_mode_radio"
     )
     
-    api_url = st.text_input("FastAPI Backend URL", "http://127.0.0.1:8080", key="api_url_input")
+    import os
+    default_api_url = os.environ.get("BACKEND_API_URL", "http://127.0.0.1:8080")
+    api_url = st.text_input("FastAPI Backend URL", default_api_url, key="api_url_input")
     
     st.markdown("---")
     st.markdown("### How it works")
